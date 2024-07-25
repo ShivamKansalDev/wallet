@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.sc-cBYhjr.hZUxNm {
+    font-weight: 700;
+    color: #64748b;
+  }
+  .sc-gJhJTp.hObTVa.rdt_TableHead {
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .frVVmQ:hover {
+    border-radius: 0 !important;
+  }
