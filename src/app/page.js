@@ -2,9 +2,17 @@
 
 import { ConnectWallet } from "@/components/ConnectWallet";
 import SetTokenPrice from "@/components/SetTokenPrice";
-import { useState } from "react";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 export default function Home({ children }) {
   const [signer, setSigner] = useState(null);
+
+  useEffect(() => {
+    if (signer) {
+      // redirect('/dashboard/home')
+    }
+  }, [signer]);
+
   return (
     <>
       <div class="relative bg-black h-screen text-white overflow-hidden">
@@ -16,13 +24,6 @@ export default function Home({ children }) {
           <h1 class="text-5xl font-bold leading-tight mb-4">
             Welcome to Fipo Admin Panel
           </h1>
-
-          {/* <a
-            href="#"
-            class="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-          >
-            Connect Wallet
-          </a> */}
 
           <ConnectWallet setSigner={setSigner} />
           {signer && <SetTokenPrice signer={signer} />}
