@@ -1,19 +1,17 @@
-import { Inter } from 'next/font/google';
-import './globals.css';
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'Fido wallet',
-  description: 'welcome to Fido'
+  title: "Fido wallet",
+  description: "welcome to Fido",
 };
 
-export default async function RootLayout({children}) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} overflow-hidden`}>
-          {children}
-      </body>
+      <body className={`${inter.className}`}>{children}</body>
     </html>
   );
 }
