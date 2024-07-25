@@ -18,7 +18,6 @@ export default function Page() {
       })
       .then((data) => {
         if (data.length > 0) {
-          console.log(data, "data");
           setData(data);
           setLoading(false);
         }
@@ -75,18 +74,20 @@ export default function Page() {
 
   return (
     <>
-      <DataTable
-        columns={columns}
-        data={data}
-        customStyles={tableCustomStyles}
-        fixedHeader
-        title="Transaction History"
-        highlightOnHover
-        pointerOnHover
-        pagination={true}
-        paginationTotalRows={data.length}
-        progressPending={loading}
-      />
+      <div className="border rounded-[16px]">
+        <DataTable
+          columns={columns}
+          data={data}
+          customStyles={tableCustomStyles}
+          fixedHeader
+          title="Transaction History"
+          highlightOnHover
+          pointerOnHover
+          pagination={true}
+          paginationTotalRows={data.length}
+          progressPending={loading}
+        />
+      </div>
     </>
   );
 }

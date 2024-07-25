@@ -1,13 +1,18 @@
-import Image from "next/image";
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
+  const pathname = usePathname();
+
   return (
     <>
       <div className="flex flex-col items-center h-full overflow-hidden text-gray-400 bg-white rounded fixed inset-y-0 left-0 z-10 w-14   border-r bg-background sm:flex">
         <div className="flex flex-col items-center mt-3">
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            className={`flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 ${
+              pathname === "/dashboard/home" ? "w-10 h-10 bg-gray-700" : ""
+            }`}
             href="/dashboard/home"
           >
             <svg
@@ -27,8 +32,12 @@ export default function SideBar() {
           </Link>
 
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-            href="/dashboard/products"
+            className={`flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 ${
+              pathname === "/dashboard/transaction-history"
+                ? "w-10 h-10 bg-gray-700"
+                : ""
+            }`}
+            href="/dashboard/transaction-history"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +57,7 @@ export default function SideBar() {
             </svg>
           </Link>
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
             href="#"
           >
             <svg
@@ -70,7 +79,7 @@ export default function SideBar() {
             </svg>
           </Link>
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
             href="#"
           >
             <svg
@@ -91,7 +100,7 @@ export default function SideBar() {
             </svg>
           </Link>
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
             href="#"
           >
             <svg

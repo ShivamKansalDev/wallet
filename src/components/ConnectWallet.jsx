@@ -6,8 +6,8 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers5/react";
 import { ethers } from "ethers";
-import React, { useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect } from "react";
+import styled, { keyframes } from "styled-components";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -92,7 +92,7 @@ const Icon = styled.img`
 const Address = styled.div`
   margin-top: 10px;
   color: #333;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 `;
 
 export function ConnectWallet({ setSigner }) {
@@ -110,19 +110,18 @@ export function ConnectWallet({ setSigner }) {
 
   const buttonContent = isConnected ? (
     <>
-     Address: {address ? `${address.slice(0, 4)}...${address.slice(-4)}` : "Wallet Connected"}
+      Address:{" "}
+      {address
+        ? `${address.slice(0, 4)}...${address.slice(-4)}`
+        : "Wallet Connected"}
     </>
   ) : (
-    <>
-      Connect Wallet
-    </>
+    <>Connect Wallet</>
   );
 
   return (
     <div>
-      <Button onClick={() => open()}>
-        {buttonContent}
-      </Button>
+      <Button onClick={() => open()}>{buttonContent}</Button>
     </div>
   );
 }

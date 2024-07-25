@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }) {
         <div className="w-[4%] h-screen">
           <SideBar />
         </div>
-        <div className="w-[96%] bg-gray-300">
+        <div className="w-[96%] bg-[#f1f5f966]">
           <Header />
           <div className="p-5">{children}</div>
         </div>
