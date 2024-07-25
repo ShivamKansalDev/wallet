@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   createWeb3Modal,
   defaultConfig,
@@ -96,7 +96,7 @@ const Address = styled.div`
   font-family: "Courier New", Courier, monospace;
 `;
 
-export function ConnectWallet({ setSigner }) {
+export function ConnectWallet({ setSigner = () => {} }) {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
@@ -107,7 +107,7 @@ export function ConnectWallet({ setSigner }) {
       const signer = provider.getSigner();
       setSigner(signer);
     }
-  }, [address, isConnected, setSigner, walletProvider]);
+  }, [address, isConnected, walletProvider]);
 
   const buttonContent = isConnected ? (
     <>

@@ -66,7 +66,7 @@ const SetTokenPrice = ({ signer }) => {
   useEffect(() => {
     if (signer) {
       fetchContractTokenBalance();
-      // checkOwner();
+      checkOwner();
     }
   }, [signer]);
 
@@ -353,32 +353,32 @@ const SetTokenPrice = ({ signer }) => {
     );
   }
 
-  if (!isOwner) {
-    return (
-      <Container
-        maxWidth="lg"
-        style={{ marginTop: "30px", paddingBottom: "20px" }}
-      >
-        <Typography
-          variant="h4"
-          gutterBottom
-          style={{
-            textAlign: "center",
-            marginBottom: "20px",
-            color: "#f44336",
-          }}
-        >
-          Access Denied
-        </Typography>
-        <Typography
-          variant="h6"
-          style={{ textAlign: "center", marginBottom: "20px" }}
-        >
-          Please connect with the owners wallet.
-        </Typography>
-      </Container>
-    );
-  }
+  // if (!isOwner) {
+  //   return (
+  //     <Container
+  //       maxWidth="lg"
+  //       style={{ marginTop: "30px", paddingBottom: "20px" }}
+  //     >
+  //       <Typography
+  //         variant="h4"
+  //         gutterBottom
+  //         style={{
+  //           textAlign: "center",
+  //           marginBottom: "20px",
+  //           color: "#f44336",
+  //         }}
+  //       >
+  //         Access Denied
+  //       </Typography>
+  //       <Typography
+  //         variant="h6"
+  //         style={{ textAlign: "center", marginBottom: "20px" }}
+  //       >
+  //         Please connect with the owners wallet.
+  //       </Typography>
+  //     </Container>
+  //   );
+  // }
 
   return (
     <Container

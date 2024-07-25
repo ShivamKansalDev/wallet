@@ -57,8 +57,8 @@ export default function SideBar() {
             </svg>
           </Link>
           <Link
-            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-            href="#"
+            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            href="/dashboard/manage"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

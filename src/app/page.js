@@ -7,12 +7,6 @@ import { useEffect, useState } from "react";
 export default function Home({ children }) {
   const [signer, setSigner] = useState(null);
 
-  useEffect(() => {
-    if (signer) {
-      // redirect('/dashboard/home')
-    }
-  }, [signer]);
-
   return (
     <>
       <div class="relative bg-black h-screen text-white overflow-hidden">
@@ -25,8 +19,17 @@ export default function Home({ children }) {
             Welcome to Fipo Admin Panel
           </h1>
 
-          <ConnectWallet setSigner={setSigner} />
-          {signer && <SetTokenPrice signer={signer} />}
+          <ConnectWallet
+            setSigner={(data) => {
+              console.log("&&&***data", data);
+              if (data) {
+                setSigner(data);
+                // localStorage.setItem("signer", JSON.stringify(data));
+                redirect("/dashboard/home");
+              }
+            }}
+          />
+          {/* {signer && <SetTokenPrice signer={signer} />} */}
         </div>
       </div>
     </>
