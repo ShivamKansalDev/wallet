@@ -21,7 +21,7 @@ export default function Home({ children }) {
 
           <ConnectWallet
             setSigner={(data) => {
-              console.log("&&&***datarfg: ", data);
+              console.log("&&&***data: ", data);
               if (data) {
                 setSigner(data);
                 // localStorage.setItem("signer", JSON.stringify(data));
