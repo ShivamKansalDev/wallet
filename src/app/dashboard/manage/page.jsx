@@ -29,7 +29,11 @@ import {
   Update as UpdateIcon,
   Event as EventIcon,
   Money as MoneyIcon,
-} from "@mui/icons-material";
+  
+ 
+} from "@mui/icons-material"; 
+import NotStartedIcon from '@mui/icons-material/NotStarted';
+// import UpdateIcon from '@mui/icons-material/Update';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import contractABI from "../../../resources/contractABI.json";
@@ -382,6 +386,9 @@ export default function Page3() {
                 </div>
               </Grid>
               <Grid item xs={12} md={4}>
+
+
+              <div className="relative">
                 <Card
                   style={{
                     background: "#fffff",
@@ -392,6 +399,22 @@ export default function Page3() {
                   className="md:h-[218px]"
                 >
                   <CardContent>
+
+                  <Avatar
+                          style={{
+                            backgroundColor: "tomato",
+                            marginRight: "10px",
+                            position: "absolute",
+                            right: "20px",
+                            top: "-20px",
+                            width: "60px",
+                            height: "60px",
+                          }}
+                        >
+                          <NotStartedIcon />
+                        </Avatar>
+
+
                     <Typography
                       variant="h6"
                       style={{
@@ -425,7 +448,7 @@ export default function Page3() {
                         variant="contained"
                         color="primary"
                         onClick={unpausePresaleHandler}
-                        startIcon={<PauseIcon />}
+                        startIcon={<PlayArrowIcon />}
                         style={{
                           marginTop: "10px",
                           backgroundColor: "green",
@@ -440,8 +463,10 @@ export default function Page3() {
                     </Box>
                   </CardContent>
                 </Card>
+                </div>
               </Grid>
               <Grid item xs={12} md={4}>
+              <div className="relative">
                 <Card
                   style={{
                     background: "#ffffff",
@@ -450,6 +475,22 @@ export default function Page3() {
                   }}
                 >
                   <CardContent>
+                  <Avatar
+                          style={{
+                            backgroundColor: "skyblue",
+                            marginRight: "10px",
+                            position: "absolute",
+                            right: "20px",
+                            top: "-20px",
+                            width: "60px",
+                            height: "60px",
+                          }}
+                        >
+                          <UpdateIcon />
+                        </Avatar>
+                        
+
+
                     <Typography
                       variant="h6"
                       style={{
@@ -494,6 +535,7 @@ export default function Page3() {
                     </Button>
                   </CardContent>
                 </Card>
+                </div>
               </Grid>
             </Grid>
           </Box>
