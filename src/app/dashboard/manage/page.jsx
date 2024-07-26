@@ -1,7 +1,20 @@
+import {
+  TextField, Button, Card, CardContent, Typography, Box, Table, TableBody, TableCell,
+  TableContainer, TableHead, TableRow, Paper, Grid, Container, CircularProgress,
+  Tooltip, LinearProgress, Avatar
+} from '@mui/material';
+import {
+  DownloadForOffline as DownloadIcon, Pause as PauseIcon, PlayArrow as PlayArrowIcon,
+  Update as UpdateIcon, Event as EventIcon, Money as MoneyIcon
+} from '@mui/icons-material';
+
+
+
+
 export default function Page3() {
   return (
     <>
-      <div class="container relative flex flex-col justify-between h-full max-w-6xl px-10 mx-auto xl:px-0 mt-5">
+      {/* <div class="container relative flex flex-col justify-between h-full max-w-6xl px-10 mx-auto xl:px-0 mt-5">
         <h2 class="mb-1 text-3xl font-extrabold leading-tight text-gray-900">
           Manage
         </h2>
@@ -112,7 +125,158 @@ export default function Page3() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <Container maxWidth="lg" style={{ marginTop: '30px', paddingBottom: '20px' }}>
+      <Box my={4}>
+      <Grid container spacing={4}>
+      <Grid item xs={12} md={4}>
+            <Card style={{ background: '#f5f5f5', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
+              <CardContent>
+                <Box display="flex" alignItems="center">
+                  <Avatar style={{ backgroundColor: '#3f51b5', marginRight: '10px' }}>
+                    <MoneyIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="h6">Set Token Price</Typography>
+                    <TextField
+                      fullWidth
+                      label="New Token Price (in cents)"
+                      variant="outlined"
+                      // value={price}
+                      // onChange={(e) => setPrice(e.target.value)}
+                      margin="normal"
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={setPriceHandler}
+                      startIcon={<UpdateIcon />}
+                      style={{ marginTop: '10px' }}
+                    >
+                      Update
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card style={{ background: '#f5f5f5', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
+              <CardContent>
+                <Box display="flex" alignItems="center">
+                  <Avatar style={{ backgroundColor: '#3f51b5', marginRight: '10px' }}>
+                    <EventIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="h6">Set Start Time</Typography>
+                    <TextField
+                      fullWidth
+                      type="datetime-local"
+                      // value={startTime}
+                      // onChange={(e) => setStartTime(e.target.value)}
+                      margin="normal"
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={setPresalePeriodHandler}
+                      startIcon={<UpdateIcon />}
+                      style={{ marginTop: '10px' }}
+                    >
+                      Set Start Time
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card style={{ background: '#f5f5f5', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
+              <CardContent>
+                <Box display="flex" alignItems="center">
+                  <Avatar style={{ backgroundColor: '#3f51b5', marginRight: '10px' }}>
+                    <EventIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="h6">Set End Time</Typography>
+                    <TextField
+                      fullWidth
+                      type="datetime-local"
+                      // value={endTime}
+                      // onChange={(e) => setEndTime(e.target.value)}
+                      margin="normal"
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={setEndTimeHandler}
+                      startIcon={<UpdateIcon />}
+                      style={{ marginTop: '10px' }}
+                    >
+                      Set End Time
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card style={{ background: '#e0f7fa', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
+              <CardContent>
+                <Typography variant="h6" style={{ color: '#00796b' }}>Presale Control</Typography>
+                <Box display="flex" gap={2} mt={2}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<PauseIcon />}
+                    // onClick={pausePresaleHandler}
+                  >
+                    Pause Sale
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    startIcon={<PlayArrowIcon />}
+                    // onClick={unpausePresaleHandler}
+                  >
+                    Resume Sale
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card style={{ background: '#e0f7fa', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
+              <CardContent>
+                {/* <Typography variant="h6" style={{ color: '#00796b' }}>Current Presale Phase: {presalePhase}</Typography> */}
+                <Typography variant="h6" style={{ color: '#00796b' }}>Current Presale Phase: 0</Typography>
+                <TextField
+                  fullWidth
+                  label="Set New Phase"
+                  variant="outlined"
+                  // value={newPhase}
+                  // onChange={(e) => setNewPhase(e.target.value)}
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: <Tooltip title="Set the new presale phase."><UpdateIcon /></Tooltip>
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  // onClick={setPresalePhaseHandler}
+                  startIcon={<UpdateIcon />}
+                  style={{ marginTop: '10px' }}
+                >
+                  Update Phase
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+          </Grid>
+                  </Box>
+      </Container>
     </>
   );
 }
