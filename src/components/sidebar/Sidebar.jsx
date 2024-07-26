@@ -57,7 +57,9 @@ export default function SideBar() {
             </svg>
           </Link>
           <Link
-            className="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+            className={`flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 ${
+              pathname === "/dashboard/manage" ? "w-10 h-10 bg-gray-700" : ""
+            }`}
             href="/dashboard/manage"
           >
             <svg
@@ -76,47 +78,6 @@ export default function SideBar() {
               <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
               <path d="m3.3 7 8.7 5 8.7-5"></path>
               <path d="M12 22V12"></path>
-            </svg>
-          </Link>
-          <Link
-            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-users-round h-5 w-5"
-            >
-              <path d="M18 21a8 8 0 0 0-16 0"></path>
-              <circle cx="10" cy="8" r="5"></circle>
-              <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path>
-            </svg>
-          </Link>
-          <Link
-            className="flex items-center justify-center w-10 h-10 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-line-chart h-5 w-5"
-            >
-              <path d="M3 3v18h18"></path>
-              <path d="m19 9-5 5-4-4-3 3"></path>
             </svg>
           </Link>
         </div>
