@@ -12,7 +12,7 @@ export default function Header() {
   const allPaths = {
     home: "Home",
     manage: "Manage",
-    "transaction-history": "Transaction History",
+    "transaction-history": "Transaction History"
   };
 
   useEffect(() => {
