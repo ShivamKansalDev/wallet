@@ -1,22 +1,104 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { ethers } from "ethers";
+
+import contractABI from "../../../resources/contractABI.json";
+import tokenABI from "../../../resources/tokenABI.json";
+import { Card, CardContent, CircularProgress, LinearProgress, Typography } from "@mui/material";
+
+const contractAddress = "0xE01d7F54EdD78439f4d453F84208e04c0a7B5Bfa";
+const tokenContractAddress = "0x21A04489B7616eB08479ed3C688374316Da8c46f";
 
 export default function Page2() {
-  const [signer, setSigner] = useState(null);
+  const { signer } = useSelector((state) => state.signer);
+
+  const [contractTokenBalance, setContractTokenBalance] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [tokensSold, setTokensSold] = useState("");
+  const [raisedAmount, setRaisedAmount] = useState("");
+  const [tokenPriceInUSD, setTokenPriceInUSD] = useState("");
+  const [isOwner, setIsOwner] = useState(false);
+
   useEffect(() => {
-    const data = localStorage.getItem("signer");
-    console.log(data);
-    if (data) {
-      setSigner(JSON.parse(data));
+    console.log("^^^ SIGNER: ", signer)
+    fetchTokenPriceInUSD();
+  }, [signer]);
+
+  useEffect(() => {
+    if (signer) {
+      fetchContractTokenBalance();
+      checkOwner();
     }
-  }, []);
+  }, [signer]);
+
+  useEffect(() => {
+    if (tokenPriceInUSD && tokensSold) {
+      calculateRaisedAmount();
+    }
+  }, [tokenPriceInUSD, tokensSold]);
+
+  const fetchTokenPriceInUSD = async () => {
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    try {
+      const priceInUSD = await contract.tokenPriceInUSD();
+      setTokenPriceInUSD(priceInUSD.toString());
+    } catch (err) {
+      console.error("Error fetching token price in USD:", err);
+    }
+  };
+
+  const fetchContractTokenBalance = async () => {
+    const tokenContract = new ethers.Contract(
+      tokenContractAddress,
+      tokenABI,
+      signer
+    );
+    try {
+      const balance = await tokenContract.balanceOf(contractAddress);
+      setContractTokenBalance(ethers.utils.formatUnits(balance, "ether"));
+    } catch (err) {
+      console.error("Error fetching contract's token balance:", err);
+    }
+  };
+
+  const checkOwner = async () => {
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    try {
+      const ownerAddress = await contract.owner();
+      const userAddress = await signer.getAddress();
+      setIsOwner(ownerAddress.toLowerCase() === userAddress.toLowerCase());
+      fetchTokensSold(contract);
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchTokensSold = async (contract) => {
+    try {
+      const tokens = await contract.getTokensSold();
+      setTokensSold(tokens.toString());
+    } catch (err) {
+      console.error("Error fetching tokens sold:", err);
+    }
+  };
+
+  const calculateRaisedAmount = () => {
+    const tokensSoldInMainUnit = ethers.utils.formatUnits(tokensSold, 18);
+    const pricePerTokenInUSD = parseFloat(tokenPriceInUSD) / 100;
+    const raisedAmountUSD =
+      parseFloat(tokensSoldInMainUnit) * pricePerTokenInUSD;
+    setRaisedAmount(raisedAmountUSD.toFixed(2));
+  };
 
   return (
     <>
       <section class="text-gray-700 body-font border rounded-[16px] border-gray-400 h-screen ">
         <div class="container mx-auto mt-20 ">
           <div class="flex flex-wrap -m-4 text-center justify-center">
-            <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div class="relative h-full ml-0 mr-0 sm:mr-10">
                 <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
                 <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
@@ -29,8 +111,60 @@ export default function Page2() {
                   <p class="mb-2 text-gray-600">500000.</p>
                 </div>
               </div>
-            </div>
-            <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+            </div> */}
+            <Card
+              style={{
+                background: "#e0f7fa",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6" style={{ color: "#00796b" }}>
+                  Tokens Left for Sale
+                </Typography>
+                <Typography variant="body1">
+                  {contractTokenBalance ? (
+                    parseFloat(contractTokenBalance).toFixed(0)
+                  ) : (
+                    <CircularProgress size={20} />
+                  )}
+                </Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={
+                    (contractTokenBalance /
+                      (parseFloat(contractTokenBalance) +
+                        parseFloat(tokensSold))) *
+                    100
+                  }
+                />
+              </CardContent>
+            </Card>
+            <Card
+              style={{
+                background: "#e0f7fa",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6" style={{ color: "#00796b" }}>
+                  Tokens Sold
+                </Typography>
+                <Typography variant="body1">
+                  {tokensSold ? (
+                    `${parseFloat(
+                      ethers.utils.formatUnits(
+                        ethers.BigNumber.from(tokensSold),
+                        18
+                      )
+                    ).toFixed(0)}`
+                  ) : (
+                    <CircularProgress size={20} />
+                  )}
+                </Typography>
+              </CardContent>
+            </Card>
+            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div class="relative h-full ml-0 mr-0 sm:mr-10">
                 <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
                 <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
@@ -43,8 +177,8 @@ export default function Page2() {
                   <p class="mb-2 text-gray-600">5000.</p>
                 </div>
               </div>
-            </div>
-            <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+            </div> */}
+            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
               <div class="relative h-full ml-0 mr-0 sm:mr-10">
                 <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
                 <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
@@ -57,7 +191,28 @@ export default function Page2() {
                   <p class="mb-2 text-gray-600">72000.</p>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <Card
+              style={{
+                background: "#e0f7fa",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6" style={{ color: "#00796b" }}>
+                  Raised Amount (USD)
+                </Typography>
+                <Typography variant="body1">{
+                  (raisedAmount)? (
+                    `$${raisedAmount}`
+                  )
+                  :
+                  (
+                    <CircularProgress size={20} />
+                  )
+                }</Typography>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

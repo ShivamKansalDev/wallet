@@ -36,6 +36,7 @@ import {
   Money as MoneyIcon,
 } from "@mui/icons-material";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
 
 const contractAddress = "0xE01d7F54EdD78439f4d453F84208e04c0a7B5Bfa";
 const tokenContractAddress = "0x21A04489B7616eB08479ed3C688374316Da8c46f";
@@ -55,6 +56,8 @@ const SetTokenPrice = ({ signer }) => {
   const [newPhase, setNewPhase] = useState("");
   const [isOwner, setIsOwner] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   const indexOfLastTransaction = currentPage * itemsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - itemsPerPage;
