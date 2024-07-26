@@ -24,8 +24,11 @@ export default function Header() {
 
   return (
     <>
-      <nav class="flex bg-white p-6" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-2">
+      <nav
+        class="flex justify-between bg-white p-5 shadow-sm border-b-2"
+        aria-label="Breadcrumb"
+      >
+        <ol class="inline-flex items-center  space-x-1 md:space-x-2">
           <li class="inline-flex items-center">
             <a
               href="#"
@@ -50,20 +53,22 @@ export default function Header() {
               </svg>
               <a
                 href="#"
-                className="text-gray-700 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium"
+                className="text-gray-700 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium "
               >
                 {pathName}
               </a>
             </div>
           </li>
-          <ConnectWallet 
+        </ol>
+        <div>
+          <ConnectWallet
             navigate={() => {
-              if(address.includes("/dashboard")){ 
-                window.location.replace("/")
+              if (address.includes("/dashboard")) {
+                window.location.replace("/");
               }
             }}
           />
-        </ol>
+        </div>
       </nav>
     </>
   );

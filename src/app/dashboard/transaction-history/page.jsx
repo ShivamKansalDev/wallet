@@ -1,13 +1,27 @@
 "use client";
+
+import { Button, Box } from "@mui/material";
+import { DownloadForOffline as DownloadIcon } from "@mui/icons-material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { ethers } from "ethers";
+import { toast, ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
+import contractABI from "../../../resources/contractABI.json";
+import "react-toastify/dist/ReactToastify.css";
+import { contractAddress } from "../home/page";
 
 export default function Page() {
-  const [totalRows, setTotalRows] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const { signer } = useSelector((state) => state.signer);
+  const { isOwner } = useSelector((state) => state.owner);
 
+  const [loading, setLoading] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    console.log("### MANAGE SIGNER: ", signer);
+  }, [signer]);
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -18,7 +32,7 @@ export default function Page() {
       })
       .then((data) => {
         if (data.length > 0) {
-          setData(data);
+          setTransactions(data);
           setLoading(false);
         }
       });
@@ -72,19 +86,94 @@ export default function Page() {
     },
   };
 
+  const withdrawTokensHandler = async () => {
+    if (!isOwner) {
+      toast.error("You are not the owner.");
+      return;
+    }
+
+    try {
+      const contract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+      const transaction = await contract.withdrawTokens();
+      await transaction.wait();
+      toast.success("Tokens withdrawn successfully.");
+    } catch (err) {
+      console.error("Error withdrawing tokens:", err);
+      toast.error("Failed to withdraw tokens.");
+    }
+  };
+
+  const exportToCsv = () => {
+    const csvHeaders =
+      "Buyer,Currency,Money Amount,Tokens Bought,Transaction Hash,Transaction Date\n";
+    const csvRows = transactions.map((transaction) => {
+      const buyer = transaction.buyer;
+      const currency = transaction.currency || "N/A";
+      const amount = transaction.amount || "N/A";
+      const tokensBought = transaction.amountOfTokens || "N/A";
+      const transactionHash = transaction.transactionHash || "N/A";
+      const transactionDate = transaction.createdAt
+        ? new Date(transaction.createdAt).toLocaleDateString()
+        : "N/A";
+      return [
+        buyer,
+        currency,
+        amount,
+        tokensBought,
+        transactionHash,
+        transactionDate,
+      ].join(",");
+    });
+    const csvString = [csvHeaders, ...csvRows].join("\n");
+    const blob = new Blob([csvString], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "TransactionHistory.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
   return (
     <>
-      <div className="border rounded-[16px]">
+      <ToastContainer />
+      <div className="border rounded-[16px] relative">
+        <div className="absolute z-10 top-[10px] right-[10px]">
+          <Box display="flex" justifyContent="flex-end" mb={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<DownloadIcon />}
+              onClick={exportToCsv}
+              style={{ marginRight: "10px" }}
+            >
+              Export to CSV
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={withdrawTokensHandler}
+              startIcon={<DownloadIcon />}
+            >
+              Withdraw Tokens
+            </Button>
+          </Box>
+        </div>
         <DataTable
           columns={columns}
-          data={data}
+          data={transactions}
           customStyles={tableCustomStyles}
           fixedHeader
           title="Transaction History"
           highlightOnHover
           pointerOnHover
           pagination={true}
-          paginationTotalRows={data.length}
+          paginationTotalRows={transactions.length}
           progressPending={loading}
         />
       </div>
