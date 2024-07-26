@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ownerActions } from "@/lib/features/slice/ownerSlice";
-import Image from "next/image";
+import CardHolder from "./CardHolder";
 
 export const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 export const tokenContractAddress =
@@ -115,99 +115,54 @@ export default function Page2() {
 
   return (
     <>
-      <section className="text-gray-700 body-font bg-white rounded-[16px] h-screen shadow-lg border">
-        <div className="container mx-auto mt-5 ">
-          <div className=" flex flex-wrap -m-4 text-center justify-center">
-            <div className="flex-wrap flex gap-10 mt-20">
-              <Card
-                style={{
-                  background: "#e0f7fa",
-                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                }}
-                className="purple_border border border-black"
-              >
-                <CardContent 
-                >
-                  <Typography variant="h6" style={{ color: "#00796b" }}>
-                    Tokens Left for Sale
-                  </Typography>
-
-
-                {/* <Image  src='/tokens.png' alt='token' width={80} height={80} /> */}
-
-                  <Typography variant="body1" 
-                      style={{ fontSize: '3rem', fontWeight: 'bold' }} // Increase font
-                  >
-                    {contractTokenBalance ? (
-                      parseFloat(contractTokenBalance).toFixed(0)
-                    ) : (
-                      <CircularProgress size={20} />
-                    )}
-                  </Typography>
-                  <LinearProgress
-                    variant="determinate"
-                    value={
-                      (contractTokenBalance /
-                        (parseFloat(contractTokenBalance) +
-                          parseFloat(tokensSold))) *
-                      100
-                    }
-                  />
-                </CardContent>
-              </Card>
-              <Card
-                style={{
-                  background: "#e0f7fa",
-                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                }}
-                className="purple_border border border-black"
-                
-              >
-                <CardContent>
-                  <Typography variant="h6" style={{ color: "#00796b" }}>
-                    Tokens Sold
-                  </Typography>
-                  <Typography variant="body1"
-                                style={{ fontSize: '3rem', fontWeight: 'bold' }} // Increase font
-                  >
-                    {tokensSold ? (
-                      `${parseFloat(
-                        ethers.utils.formatUnits(
-                          ethers.BigNumber.from(tokensSold),
-                          18
-                        )
-                      ).toFixed(0)}`
-                    ) : (
-                      <CircularProgress size={20} />
-                    )}
-                  </Typography>
-                </CardContent>
-              </Card>
-              <Card
-                style={{
-                  background: "#e0f7fa",
-                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                }}
-                className="purple_border border border-black"
-              >
-                <CardContent>
-                  <Typography variant="h6" style={{ color: "#00796b"}}>
-                    Raised Amount (USD)
-                  </Typography>
-                  <Typography variant="body1"
-                                style={{ fontSize: '3rem', fontWeight: 'bold' }} // Increase font
-                  
-                  >{
-                    (raisedAmount)? (
-                      `$${raisedAmount}`
-                    ) : (
-                      <CircularProgress size={20} />
-                    )}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+      <section className="text-gray-700 body-font bg-white rounded-[16px] sm:h-full md:h-full  xl:h-screen shadow-lg border">
+        <div className="container mx-auto mt-5 p-5">
+              <div className="sm:columns-1  md:columns-1 xl:columns-3">
+                <CardHolder 
+                  title="Token Left for Sale"
+                  titleBg="#000"
+                  value={contractTokenBalance ? (
+                    parseFloat(contractTokenBalance).toFixed(0)
+                  ) : (
+                    <CircularProgress size={20} />
+                  )}
+                  valueBg="#FAEBE0"
+                  progress={(
+                    <LinearProgress
+                      variant="determinate"
+                      value={
+                        (contractTokenBalance /
+                          (parseFloat(contractTokenBalance) +
+                            parseFloat(tokensSold))) *
+                        100
+                      }
+                    />
+                  )}
+                />
+                <CardHolder 
+                  title="Tokens Sold"
+                  titleBg="#000"
+                  value={tokensSold ? (
+                    `${parseFloat(
+                      ethers.utils.formatUnits(
+                        ethers.BigNumber.from(tokensSold),
+                        18
+                      )
+                    ).toFixed(0)}`
+                  ) : (
+                    <CircularProgress size={20} />
+                  )}
+                />
+                <CardHolder 
+                  titleBg="#000"
+                  title="Raised Amount (USD)"
+                  value={raisedAmount ? (
+                    `$${raisedAmount}`
+                  ) : (
+                    <CircularProgress size={20} />
+                  )}
+                />
+              </div>
         </div>
       </section>
     </>
