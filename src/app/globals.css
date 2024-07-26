@@ -16,3 +16,10 @@
 .sc-fQpRED.dlsHpZ.rdt_Table {
   margin-top: 20px;
 }
+
+@media only screen and (max-width: 480px){
+  .sc-jXUnUj.eHZOhU {
+    width: 150px;
+    font-size: 12px;
+}
+}
