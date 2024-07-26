@@ -1,6 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ConnectWallet } from "../ConnectWallet";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const [pathName, setPathName] = useState("");
@@ -54,6 +56,13 @@ export default function Header() {
               </a>
             </div>
           </li>
+          <ConnectWallet 
+            navigate={() => {
+              if(address.includes("/dashboard")){
+                window.location.replace("/")
+              }
+            }}
+          />
         </ol>
       </nav>
     </>

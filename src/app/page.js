@@ -2,10 +2,13 @@
 
 import { ConnectWallet } from "@/components/ConnectWallet";
 import SetTokenPrice from "@/components/SetTokenPrice";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 export default function Home({ children }) {
-  const [signer, setSigner] = useState(null);
+  // const router = useRouter();
+
+  // function navigate(){
+  //   router.push("/dashboard/home");
+  // }
 
   return (
     <>
@@ -19,16 +22,7 @@ export default function Home({ children }) {
             Welcome to Fipo Admin Panel
           </h1>
 
-          <ConnectWallet
-            setSigner={(data) => {
-              console.log("&&&***data dd: ", data);
-              if (data) {
-                setSigner(data);
-                // localStorage.setItem("signer", JSON.stringify(data));
-                redirect("/dashboard/home");
-              }
-            }}
-          />
+          <ConnectWallet />
           {/* {signer && <SetTokenPrice signer={signer} />} */}
         </div>
       </div>

@@ -100,124 +100,84 @@ export default function Page2() {
 
   return (
     <>
-      <section class="text-gray-700 body-font border rounded-[16px] border-gray-400 h-screen ">
-        <div class="container mx-auto mt-20 ">
-          <div class="flex flex-wrap -m-4 text-center justify-center">
-            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div class="relative h-full ml-0 mr-0 sm:mr-10">
-                <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
-                <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
-                  <div class="flex items-center -mt-1">
-                    <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">
-                      {" "}
-                      Tokens Left for Sale
-                    </h3>
-                  </div>
-                  <p class="mb-2 text-gray-600">500000.</p>
-                </div>
-              </div>
-            </div> */}
-            <Card
-              style={{
-                background: "#e0f7fa",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <CardContent>
-                <Typography variant="h6" style={{ color: "#00796b" }}>
-                  Tokens Left for Sale
-                </Typography>
-                <Typography variant="body1">
-                  {contractTokenBalance ? (
-                    parseFloat(contractTokenBalance).toFixed(0)
-                  ) : (
-                    <CircularProgress size={20} />
-                  )}
-                </Typography>
-                <LinearProgress
-                  variant="determinate"
-                  value={
-                    (contractTokenBalance /
-                      (parseFloat(contractTokenBalance) +
-                        parseFloat(tokensSold))) *
-                    100
-                  }
-                />
-              </CardContent>
-            </Card>
-            <Card
-              style={{
-                background: "#e0f7fa",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <CardContent>
-                <Typography variant="h6" style={{ color: "#00796b" }}>
-                  Tokens Sold
-                </Typography>
-                <Typography variant="body1">
-                  {tokensSold ? (
-                    `${parseFloat(
-                      ethers.utils.formatUnits(
-                        ethers.BigNumber.from(tokensSold),
-                        18
-                      )
-                    ).toFixed(0)}`
-                  ) : (
-                    <CircularProgress size={20} />
-                  )}
-                </Typography>
-              </CardContent>
-            </Card>
-            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div class="relative h-full ml-0 mr-0 sm:mr-10">
-                <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
-                <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
-                  <div class="flex items-center -mt-1">
-                    <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">
-                      {" "}
-                      Tokens sold
-                    </h3>
-                  </div>
-                  <p class="mb-2 text-gray-600">5000.</p>
-                </div>
-              </div>
-            </div> */}
-            {/* <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-              <div class="relative h-full ml-0 mr-0 sm:mr-10">
-                <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-gray-500 rounded-lg"></span>
-                <div class="relative h-full p-5 bg-white border-2 border-gray-500 rounded-lg">
-                  <div class="flex items-center -mt-1">
-                    <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">
-                      {" "}
-                      Raised Amount(USD)
-                    </h3>
-                  </div>
-                  <p class="mb-2 text-gray-600">72000.</p>
-                </div>
-              </div>
-            </div> */}
-            <Card
-              style={{
-                background: "#e0f7fa",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <CardContent>
-                <Typography variant="h6" style={{ color: "#00796b" }}>
-                  Raised Amount (USD)
-                </Typography>
-                <Typography variant="body1">{
-                  (raisedAmount)? (
-                    `$${raisedAmount}`
-                  )
-                  :
-                  (
-                    <CircularProgress size={20} />
-                  )
-                }</Typography>
-              </CardContent>
-            </Card>
+      <section className="text-gray-700 body-font bg-white rounded-[16px] h-screen ">
+        <div className="container mx-auto mt-5 ">
+          <div className=" flex flex-wrap -m-4 text-center justify-center">
+            <div className="flex-wrap flex gap-10 mt-20">
+              <Card
+                style={{
+                  background: "#e0f7fa",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h6" style={{ color: "#00796b" }}>
+                    Tokens Left for Sale
+                  </Typography>
+                  <Typography variant="body1">
+                    {contractTokenBalance ? (
+                      parseFloat(contractTokenBalance).toFixed(0)
+                    ) : (
+                      <CircularProgress size={20} />
+                    )}
+                  </Typography>
+                  <LinearProgress
+                    variant="determinate"
+                    value={
+                      (contractTokenBalance /
+                        (parseFloat(contractTokenBalance) +
+                          parseFloat(tokensSold))) *
+                      100
+                    }
+                  />
+                </CardContent>
+              </Card>
+              <Card
+                style={{
+                  background: "#e0f7fa",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h6" style={{ color: "#00796b" }}>
+                    Tokens Sold
+                  </Typography>
+                  <Typography variant="body1">
+                    {tokensSold ? (
+                      `${parseFloat(
+                        ethers.utils.formatUnits(
+                          ethers.BigNumber.from(tokensSold),
+                          18
+                        )
+                      ).toFixed(0)}`
+                    ) : (
+                      <CircularProgress size={20} />
+                    )}
+                  </Typography>
+                </CardContent>
+              </Card>
+              <Card
+                style={{
+                  background: "#e0f7fa",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h6" style={{ color: "#00796b" }}>
+                    Raised Amount (USD)
+                  </Typography>
+                  <Typography variant="body1">{
+                    (raisedAmount)? (
+                      `$${raisedAmount}`
+                    )
+                    :
+                    (
+                      <CircularProgress size={20} />
+                    )
+                  }</Typography>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
