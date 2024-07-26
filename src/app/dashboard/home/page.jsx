@@ -119,14 +119,18 @@ export default function Page2() {
         <div className="container mx-auto mt-5 p-5">
               <div className="sm:columns-1  md:columns-1 xl:columns-3">
                 <CardHolder 
+                icon={
+                  <span class="material-symbols-outlined">
+                  token
+                  </span>
+                }
                   title="Token Left for Sale"
-                  titleBg="#000"
+                  titleBg="#dca413"
                   value={contractTokenBalance ? (
                     parseFloat(contractTokenBalance).toFixed(0)
                   ) : (
                     <CircularProgress size={20} />
                   )}
-                  valueBg="#FAEBE0"
                   progress={(
                     <LinearProgress
                       variant="determinate"
@@ -140,8 +144,13 @@ export default function Page2() {
                   )}
                 />
                 <CardHolder 
+                icon={
+                  <span class="material-symbols-outlined">
+                  database
+                  </span>
+                }
                   title="Tokens Sold"
-                  titleBg="#000"
+                  titleBg="#11c169"
                   value={tokensSold ? (
                     `${parseFloat(
                       ethers.utils.formatUnits(
@@ -153,8 +162,13 @@ export default function Page2() {
                     <CircularProgress size={20} />
                   )}
                 />
-                <CardHolder 
-                  titleBg="#000"
+                <CardHolder
+                icon={
+                  <span class="material-symbols-outlined">
+                  paid
+                  </span>
+                }
+                 titleBg="#cc1f47"
                   title="Raised Amount (USD)"
                   value={raisedAmount ? (
                     `$${raisedAmount}`

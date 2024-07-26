@@ -143,7 +143,7 @@ export default function Page() {
     <>
       <ToastContainer />
       <div className="border rounded-[16px] relative">
-        <div className="absolute z-10 top-[10px] right-[10px]">
+        <div className="absolute -top-12 right-1 z-10 md:absolute md:z-10 md:top-[10px] md:right-[10px]">
           <Box display="flex" justifyContent="flex-end" mb={2}>
             <Button
               variant="contained"
