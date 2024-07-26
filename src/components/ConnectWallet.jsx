@@ -141,6 +141,7 @@ export function ConnectWallet({navigate = () => {}}) {
     <div>
       <Button 
         onClick={() => open()}
+        style={{backgroundColor:'#0841cf'}}
       >
           {buttonContent}
       </Button>
