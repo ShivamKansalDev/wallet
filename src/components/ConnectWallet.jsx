@@ -1,5 +1,4 @@
 "use client";
-import { signerActions } from "@/lib/features/slice/signerSlice";
 import {
   createWeb3Modal,
   defaultConfig,
@@ -8,10 +7,13 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers5/react";
 import { ethers } from "ethers";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
+
+import { signerActions } from "@/lib/features/slice/signerSlice";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -99,19 +101,28 @@ const Address = styled.div`
   font-family: "Courier New", Courier, monospace;
 `;
 
-export function ConnectWallet({ setSigner = () => {} }) {
+export function ConnectWallet({navigate = () => {}}) {
+  const { signer } = useSelector((state) => state.signer);
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
   const dispatch = useDispatch();
+  const pathName = usePathname();
+  // const router = useRouter();
 
   useEffect(() => {
     if (address && isConnected) {
       const provider = new ethers.providers.Web3Provider(walletProvider);
       const signer = provider.getSigner();
       dispatch(signerActions.setSigner(signer));
-      redirect("/dashboard/home")
+      if(pathName === "/"){
+        // router.push("/dashboard/home");
+        redirect("/dashboard/home");
+      }
       // setSigner(signer);
+    }else{
+      console.log("@@@@@ HOME")
+      navigate();
     }
   }, [address, isConnected, walletProvider]);
 
@@ -128,7 +139,11 @@ export function ConnectWallet({ setSigner = () => {} }) {
 
   return (
     <div>
-      <Button onClick={() => open()}>{buttonContent}</Button>
+      <Button 
+        onClick={() => open()}
+      >
+          {buttonContent}
+      </Button>
     </div>
   );
 }
