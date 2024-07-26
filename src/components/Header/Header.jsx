@@ -53,7 +53,7 @@ export default function Header() {
               </svg>
               <a
                 href="#"
-                className="text-gray-700 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium"
+                className="text-gray-700 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium "
               >
                 {pathName}
               </a>
