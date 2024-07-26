@@ -5,11 +5,18 @@ import { ethers } from "ethers";
 
 import contractABI from "../../../resources/contractABI.json";
 import tokenABI from "../../../resources/tokenABI.json";
-import { Card, CardContent, CircularProgress, LinearProgress, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CircularProgress,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import { ownerActions } from "@/lib/features/slice/ownerSlice";
 
 export const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
-export const tokenContractAddress = process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS;
+export const tokenContractAddress =
+  process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS;
 
 export default function Page2() {
   const dispatch = useDispatch();
@@ -23,7 +30,7 @@ export default function Page2() {
   const [tokenPriceInUSD, setTokenPriceInUSD] = useState("");
 
   useEffect(() => {
-    console.log("^^^ SIGNER: ", signer)
+    console.log("^^^ SIGNER: ", signer);
     fetchTokenPriceInUSD();
   }, [signer]);
 
@@ -70,8 +77,15 @@ export default function Page2() {
     try {
       const ownerAddress = await contract.owner();
       const userAddress = await signer.getAddress();
-      const isValid = ownerAddress.toLowerCase() === userAddress.toLowerCase()
-      console.log("@@@ ISVALID: ", ownerAddress.toLowerCase(), " === ", userAddress.toLowerCase(), " = ", isValid)
+      const isValid = ownerAddress.toLowerCase() === userAddress.toLowerCase();
+      console.log(
+        "@@@ ISVALID: ",
+        ownerAddress.toLowerCase(),
+        " === ",
+        userAddress.toLowerCase(),
+        " = ",
+        isValid
+      );
       dispatch(ownerActions.setIsOwner(isValid));
       fetchTokensSold(contract);
     } catch (err) {
@@ -100,7 +114,7 @@ export default function Page2() {
 
   return (
     <>
-      <section className="text-gray-700 body-font bg-white rounded-[16px] h-screen ">
+      <section className="text-gray-700 body-font bg-white rounded-[16px] h-screen shadow-lg border">
         <div className="container mx-auto mt-5 ">
           <div className=" flex flex-wrap -m-4 text-center justify-center">
             <div className="flex-wrap flex gap-10 mt-20">
@@ -166,15 +180,13 @@ export default function Page2() {
                   <Typography variant="h6" style={{ color: "#00796b" }}>
                     Raised Amount (USD)
                   </Typography>
-                  <Typography variant="body1">{
-                    (raisedAmount)? (
+                  <Typography variant="body1">
+                    {raisedAmount ? (
                       `$${raisedAmount}`
-                    )
-                    :
-                    (
+                    ) : (
                       <CircularProgress size={20} />
-                    )
-                  }</Typography>
+                    )}
+                  </Typography>
                 </CardContent>
               </Card>
             </div>
