@@ -1,21 +1,30 @@
 'use client'
-import { useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from 'redux-persist';
 
-import { makeStore } from '../lib/store';
+import { store, persistorStore } from '../lib/store';
+import { CircularProgress } from '@mui/material';
 
 export default function StoreProvider({ children }) {
 
-  const store = makeStore();
-  const persistor = persistStore(store);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        {children}
-      </PersistGate>
+      {(isClient)? (
+        <PersistGate persistor={persistorStore}>
+          {children}
+        </PersistGate>
+      )
+      :
+      (
+        <CircularProgress size={20}/>
+      )}
     </Provider>
   )
 }

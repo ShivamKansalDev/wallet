@@ -1,24 +1,26 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ethers } from "ethers";
 
 import contractABI from "../../../resources/contractABI.json";
 import tokenABI from "../../../resources/tokenABI.json";
 import { Card, CardContent, CircularProgress, LinearProgress, Typography } from "@mui/material";
+import { ownerActions } from "@/lib/features/slice/ownerSlice";
 
-const contractAddress = "0xE01d7F54EdD78439f4d453F84208e04c0a7B5Bfa";
-const tokenContractAddress = "0x21A04489B7616eB08479ed3C688374316Da8c46f";
+export const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+export const tokenContractAddress = process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS;
 
 export default function Page2() {
+  const dispatch = useDispatch();
   const { signer } = useSelector((state) => state.signer);
+  const { isOwner } = useSelector((state) => state.owner);
 
   const [contractTokenBalance, setContractTokenBalance] = useState("");
   const [loading, setLoading] = useState(false);
   const [tokensSold, setTokensSold] = useState("");
   const [raisedAmount, setRaisedAmount] = useState("");
   const [tokenPriceInUSD, setTokenPriceInUSD] = useState("");
-  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     console.log("^^^ SIGNER: ", signer)
@@ -49,6 +51,7 @@ export default function Page2() {
   };
 
   const fetchContractTokenBalance = async () => {
+    // console.log("@@@ ENV: ", contractAddress, tokenContractAddress)
     const tokenContract = new ethers.Contract(
       tokenContractAddress,
       tokenABI,
@@ -67,7 +70,9 @@ export default function Page2() {
     try {
       const ownerAddress = await contract.owner();
       const userAddress = await signer.getAddress();
-      setIsOwner(ownerAddress.toLowerCase() === userAddress.toLowerCase());
+      const isValid = ownerAddress.toLowerCase() === userAddress.toLowerCase()
+      console.log("@@@ ISVALID: ", ownerAddress.toLowerCase(), " === ", userAddress.toLowerCase(), " = ", isValid)
+      dispatch(ownerActions.setIsOwner(isValid));
       fetchTokensSold(contract);
     } catch (err) {
       console.error("Error:", err);

@@ -4,6 +4,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 import { signerSlice } from './features/slice/signerSlice';
+import { ownerSlice } from './features/slice/ownerSlice';
 
 const createNoopStorage = () => {
   return {
@@ -19,7 +20,7 @@ const createNoopStorage = () => {
   };
 };
 
-export const storage = typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
+export const storage = typeof window !== "undefined" ? createWebStorage(" ") : createNoopStorage();
 
 // const storage = persistStorage;
 
@@ -31,18 +32,21 @@ const persistConfig = {
 
 const reducer = combineReducers({
   [signerSlice?.name]: signerSlice?.reducer,
+  [ownerSlice?.name]: ownerSlice?.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-export const makeStore = () => {
+const makeStore = () => {
   return configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
   })
 }
 
-const store = makeStore();
+export const store = makeStore();
+
+export const persistorStore = persistStore(store);
 
 export const logout = async() => {
   let persistor = persistStore(store);
