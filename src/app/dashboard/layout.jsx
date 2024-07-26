@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }) {
         </div>
         <div className="w-[96%] bg-[#f1f5f966]">
           <Header />
-          <div className="p-5">{children}</div>
+          <div className="m-14 md:m-16 xl:m-5">{children}</div>
         </div>
       </div>
     </>

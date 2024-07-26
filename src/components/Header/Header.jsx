@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       <nav
-        class="flex justify-between bg-white p-5 shadow-sm border-b-2"
+        class="flex justify-between bg-white p-5 shadow-sm border-b-2 ml-5 md:ml-0"
         aria-label="Breadcrumb"
       >
         <ol class="inline-flex items-center  space-x-1 md:space-x-2">
