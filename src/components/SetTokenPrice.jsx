@@ -2,9 +2,9 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { toast, ToastContainer } from "react-toastify";
 import contractABI from "../resources/contractABI.json";
 import tokenABI from "../resources/tokenABI.json";
-import { toast, ToastContainer } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import {
   TextField,
@@ -43,10 +43,10 @@ const tokenContractAddress = "0x21A04489B7616eB08479ed3C688374316Da8c46f";
 
 const SetTokenPrice = ({ signer }) => {
   const [price, setPrice] = useState("");
+  const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [contractTokenBalance, setContractTokenBalance] = useState("");
   const [tokensSold, setTokensSold] = useState("");
-  const [startTime, setStartTime] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
