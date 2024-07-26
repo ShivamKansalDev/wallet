@@ -2,11 +2,12 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ConnectWallet } from "../ConnectWallet";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [pathName, setPathName] = useState("");
   const address = usePathname();
+  const router = useRouter();
 
   const allPaths = {
     home: "Home",
@@ -64,7 +65,8 @@ export default function Header() {
           <ConnectWallet
             navigate={() => {
               if (address.includes("/dashboard")) {
-                window.location.replace("/");
+                // window.location.replace("/");
+                router.push("/");
               }
             }}
           />
