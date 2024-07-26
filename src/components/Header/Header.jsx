@@ -58,7 +58,7 @@ export default function Header() {
           </li>
           <ConnectWallet 
             navigate={() => {
-              if(address.includes("/dashboard")){
+              if(address.includes("/dashboard")){ 
                 window.location.replace("/")
               }
             }}
